@@ -1,0 +1,15 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  viewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # 테스트가 import 하는 tof_viewer 의 의존성만 설치
+      - run: pip install -r tools/requirements.txt
+      - run: python -m unittest discover -s tools -v

@@ -51,6 +51,15 @@ python tools/tof_viewer.py COM7 --max 2000   # 색상 범위 상한 (mm)
 뷰어는 수신 버퍼에 쌓인 줄을 모두 읽고 **마지막 유효 프레임만** 그립니다.
 그리기가 수신보다 느려도 지연이 누적되지 않습니다.
 
+`tools/sample_frames.txt` 는 위 프로토콜의 **형식 예시**입니다. 임의로 만든 합성 값이며
+실제 센서 캡처가 아닙니다.
+
+### Test
+
+```bash
+python -m unittest discover -s tools    # parse_frame 단위 테스트 (시리얼 포트 불필요)
+```
+
 ## Dependencies
 
 `stm32duino/STM32duino VL53L8CX` 는 `platformio.ini` 의 `lib_deps` 로 빌드 시 내려받습니다.
@@ -58,9 +67,8 @@ python tools/tof_viewer.py COM7 --max 2000   # 색상 범위 상한 (mm)
 
 ## 관련 프로젝트
 
-이 펌웨어를 확장해 **RGB 카메라와 동축으로 융합**한 프로젝트가 있습니다 —
-빔스플리터로 광축을 겹쳐 영상의 특정 지점 depth 를 읽습니다:
-**[vl53l8cx-rgb-fusion](https://github.com/do-gongil/vl53l8cx-rgb-fusion)**
+이 펌웨어를 확장해 **RGB 카메라와 동축으로 융합**한 프로젝트(`vl53l8cx-rgb-fusion`, 비공개)가 있습니다 —
+빔스플리터로 광축을 겹쳐 영상의 특정 지점 depth 를 읽습니다.
 
 그쪽 펌웨어는 카메라 프레임과 짝을 맞추기 위해 타임스탬프 · `target_status` 원본 ·
 ping · LED 펄스가 추가된 프로토콜 v2 를 씁니다. 센서 하나만 돌려보는 것이 목적이라면
